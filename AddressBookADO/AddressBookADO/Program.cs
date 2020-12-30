@@ -19,12 +19,14 @@ namespace AddressBookADO
             Add.phone_number = "9987936149";
             Add.addressBook_Name = "ABNameFriend";
             Add.addressBook_Type = "Friend";*/
-         //  Repo.AddContacts(Add);
-         //  Console.WriteLine("**********Inserted Record**********");
-         //   Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8}", Add.first_name, Add.last_name, Add.address, Add.city, Add.state, Add.zip, Add.phone_number, Add.addressBook_Name, Add.addressBook_Type);
-            //  Repo.EditRecordUsingName(Add);
+         // Repo.AddContacts(Add);
+         // Console.WriteLine("**********Inserted Record**********");
+         // Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8}", Add.first_name, Add.last_name, Add.address, Add.city, Add.state, Add.zip, Add.phone_number, Add.addressBook_Name, Add.addressBook_Type);
+         // Repo.EditRecordUsingName(Add);
             Add.first_name = "Imran";
-            Repo.DeleteContact(Add);
+            // Repo.DeleteContact(Add);
+            Repo.RetriveRecord();
+
         }
     }
 }

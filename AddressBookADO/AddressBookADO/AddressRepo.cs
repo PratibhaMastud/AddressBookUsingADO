@@ -170,5 +170,40 @@ namespace AddressBookADO
             }
         }
 
+        public void SortRecord()
+        {
+            try
+            {
+                AddressBookModel sorting = new AddressBookModel();
+                using (this.sqlConnection)
+                {
+                    using (SqlCommand sorts = new SqlCommand(@"Select * from address_bookDB ORDER By first_name;", this.sqlConnection))
+                    {
+                        this.sqlConnection.Open();
+                        using (SqlDataReader reader = sorts.ExecuteReader())
+                        {
+                            Console.WriteLine("*********Sorted List******");
+                            while (reader.Read())
+                            {
+                                sorting.first_name = reader.GetString(0);
+                                sorting.last_name = reader.GetString(1);
+                                sorting.address = reader.GetString(2);
+                                sorting.city = reader.GetString(3);
+                                sorting.state = reader.GetString(4);
+                                sorting.zip = reader.GetInt32(5);
+                                sorting.phone_number = reader.GetString(6);
+                                sorting.addressBook_Name = reader.GetString(7);
+                                sorting.addressBook_Type = reader.GetString(8);
+                                Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8}", sorting.first_name, sorting.last_name, sorting.address, sorting.city, sorting.state, sorting.zip, sorting.phone_number, sorting.addressBook_Name, sorting.addressBook_Type);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

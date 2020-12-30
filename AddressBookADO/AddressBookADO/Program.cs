@@ -25,7 +25,8 @@ namespace AddressBookADO
          // Repo.EditRecordUsingName(Add);
             Add.first_name = "Imran";
             // Repo.DeleteContact(Add);
-            Repo.RetriveRecord();
+            //Repo.RetriveRecord();
+            Repo.CountByCityState();
 
         }
     }

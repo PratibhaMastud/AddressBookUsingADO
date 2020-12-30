@@ -143,5 +143,32 @@ namespace AddressBookADO
                 throw new Exception(e.Message);
             }
         }
+
+        public void CountByCityState()
+        {
+            try
+            {
+                using (this.sqlConnection)
+                {
+                    using (SqlCommand CMD = new SqlCommand(@"select COUNT(first_name) from address_bookDB WHERE city='Mumbai' AND  state='maharashtra';", this.sqlConnection))
+                    {
+                        this.sqlConnection.Open();
+                        using (SqlDataReader reader = CMD.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var counts = reader.GetInt32(0);
+                                Console.WriteLine("Number of person belongs City'Mumbai' and state 'Maharashtra':{0} ", counts);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
     }
 }

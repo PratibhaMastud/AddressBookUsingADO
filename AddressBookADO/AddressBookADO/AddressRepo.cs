@@ -85,5 +85,26 @@ namespace AddressBookADO
                 throw new Exception(e.Message);
             }
         }
+
+        public void DeleteContact(AddressBookModel Model)
+        {
+            try
+            {
+                using (this.sqlConnection)
+                {
+                    SqlCommand CMD = new SqlCommand("sp_deleteRecord", this.sqlConnection);
+                    CMD.CommandType = CommandType.StoredProcedure;
+                    CMD.Parameters.AddWithValue("@first_name", Model.first_name);
+                    this.sqlConnection.Open();
+                    CMD.ExecuteNonQuery();
+                    Console.WriteLine("Contact Deleted Success...");
+                    this.sqlConnection.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

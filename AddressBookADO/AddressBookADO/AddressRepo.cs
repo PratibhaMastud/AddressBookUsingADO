@@ -205,5 +205,39 @@ namespace AddressBookADO
                 throw new Exception(e.Message);
             }
         }
+
+        public void CountByPerson()
+        {
+            try
+            {
+                using (this.sqlConnection)
+                {
+                    using (SqlCommand CMD = new SqlCommand(@"select COUNT(first_name) from address_bookDB WHERE addressBook_Type='Friend'; select COUNT(first_name) from address_bookDB WHERE AddressBook_Type='Family'; ", this.sqlConnection))
+                    {
+                        this.sqlConnection.Open();
+                        using (SqlDataReader reader = CMD.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var counts = reader.GetInt32(0);
+                                Console.WriteLine("Number of person belongs AddressType 'Friends' ':{0} ", counts);
+                            }
+                            if (reader.NextResult())
+                            {
+                                while (reader.Read())
+                                {
+                                    var countPerson = reader.GetInt32(0);
+                                    Console.WriteLine("Number of person belongs AddressType 'FamilyFriends' ':{0} ", countPerson);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

@@ -56,5 +56,34 @@ namespace AddressBookADO
                 throw new Exception(e.Message);
             }
         }
+
+        public void EditRecordUsingName(AddressBookModel Model)
+        {
+            try
+            {
+                using (this.sqlConnection)
+                {
+                    string editQuery = @"Update address_bookDB set last_name= @last_name, address = @address,city = @city, state = @state, zip=@zip, phone_number=@phone_number , addressBook_Name = @addressBook_Name, addressBook_Type = @addressBook_Type WHERE first_name = @first_name;";
+                    SqlCommand CMD = new SqlCommand(editQuery, this.sqlConnection);
+                    CMD.Parameters.AddWithValue("@first_name", Model.first_name);
+                    CMD.Parameters.AddWithValue("@last_name", Model.last_name);
+                    CMD.Parameters.AddWithValue("@address", Model.address);
+                    CMD.Parameters.AddWithValue("@city", Model.city);
+                    CMD.Parameters.AddWithValue("@state", Model.state);
+                    CMD.Parameters.AddWithValue("@zip", Model.zip);
+                    CMD.Parameters.AddWithValue("@phone_number", Model.phone_number);
+                    CMD.Parameters.AddWithValue("@addressBook_Name", Model.addressBook_Name);
+                    CMD.Parameters.AddWithValue("@addressBook_Type", Model.addressBook_Type);
+                    this.sqlConnection.Open();
+                    var result = CMD.ExecuteNonQuery();
+                    Console.WriteLine("Updated Success......");
+                    this.sqlConnection.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

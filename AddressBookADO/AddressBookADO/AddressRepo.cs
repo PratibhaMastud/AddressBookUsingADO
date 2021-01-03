@@ -239,7 +239,7 @@ namespace AddressBookADO
                 throw new Exception(e.Message);
             }
         }
-
+        
         public int RetriveAllRecord()
         {
             int count = 0;
@@ -281,7 +281,31 @@ namespace AddressBookADO
             }
         }
 
-       
+        public string UpdateContact(AddressBookModel model)
+        {
+            try
+            {
+                using (this.sqlConnection)
+                {
+                    SqlCommand command = new SqlCommand("StoreUpdateSalary", sqlConnection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@first_name", model.last_name);
+                    command.Parameters.AddWithValue("@last_name", model.last_name);
+                    this.sqlConnection.Open();
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Salary Updated Successfully !");
+                }
+                return model.first_name;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.sqlConnection.Close();
+            }
+        }
 
     }
 }

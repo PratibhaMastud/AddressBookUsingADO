@@ -32,10 +32,12 @@ namespace AddressBookADO
             /* int count =  Repo.RetriveAllRecord();
              Console.WriteLine(count);
  */
-            Add.last_name = "rane";
+            /*Add.last_name = "rane";
             Add.first_name = "Nilesh";
-           string name = Repo.UpdateContact(Add);
+           string name = Repo.UpdateContact(Add);*/
 
+            int count = Repo.getEmployeeDataWithGivenRange();
+            Console.WriteLine(count);
 
         }
     }

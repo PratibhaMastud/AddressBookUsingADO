@@ -239,7 +239,7 @@ namespace AddressBookADO
                 throw new Exception(e.Message);
             }
         }
-        
+
         public int RetriveAllRecord()
         {
             int count = 0;
@@ -266,7 +266,7 @@ namespace AddressBookADO
                                 model.addressBook_Name = reader.GetString(7);
                                 model.addressBook_Name = reader.GetString(8);
                                 model.address_id = reader.GetInt32(9);
-                                Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}", model.first_name, model.last_name, model.address, model.city, model.state, model.zip, model.phone_number, model.addressBook_Name, model.addressBook_Type,model.address_id);
+                                Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}", model.first_name, model.last_name, model.address, model.city, model.state, model.zip, model.phone_number, model.addressBook_Name, model.addressBook_Type, model.address_id);
                                 Console.WriteLine("\n");
                             }
                         }
@@ -307,5 +307,43 @@ namespace AddressBookADO
             }
         }
 
+        public int getEmployeeDataWithGivenRange()
+        {
+            try
+            {
+                int count = 0;
+                AddressBookModel employeeModel = new AddressBookModel();
+                using (this.sqlConnection)
+                {
+                    string query = @"select count(*) from address_bookDB where address_id between 102 and 104 ";
+                    SqlCommand cmd = new SqlCommand(query, this.sqlConnection);
+                    this.sqlConnection.Open();
+                    SqlDataReader sqlDataReader = cmd.ExecuteReader();
+                    if (sqlDataReader.HasRows)
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            count = sqlDataReader.GetInt32(0);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No Data Found");
+                    }
+                    sqlDataReader.Close();
+                    this.sqlConnection.Close();
+                    return count;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.sqlConnection.Close();
+            }
+        }
     }
+
 }

@@ -34,5 +34,17 @@ namespace AddressBookTestADO
             string firstName = addressRepo.UpdateContact(model);
             Assert.AreEqual(expectedResult, firstName);
         }
+
+        /// <summary>
+        /// Get count of employee from perticular range
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_whenCount_ShouldReturnCount()
+        {
+            int expectedResult = 3;
+            AddressRepo addressRepo = new AddressRepo();
+            int result = addressRepo.getEmployeeDataWithGivenRange();
+            Assert.AreEqual(expectedResult, result);
+        }
     }
 }

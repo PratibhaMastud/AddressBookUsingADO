@@ -239,5 +239,49 @@ namespace AddressBookADO
                 throw new Exception(e.Message);
             }
         }
+
+        public int RetriveAllRecord()
+        {
+            int count = 0;
+            try
+            {
+                AddressBookModel model = new AddressBookModel();
+                using (this.sqlConnection)
+                {
+                    using (SqlCommand fetch = new SqlCommand(@"Select * from address_bookDB ", this.sqlConnection))
+                    {
+                        this.sqlConnection.Open();
+                        using (SqlDataReader reader = fetch.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                count++;
+                                model.first_name = reader.GetString(0);
+                                model.last_name = reader.GetString(1);
+                                model.address = reader.GetString(2);
+                                model.city = reader.GetString(3);
+                                model.state = reader.GetString(4);
+                                model.zip = reader.GetInt32(5);
+                                model.phone_number = reader.GetString(6);
+                                model.addressBook_Name = reader.GetString(7);
+                                model.addressBook_Name = reader.GetString(8);
+                                model.address_id = reader.GetInt32(9);
+                                Console.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9}", model.first_name, model.last_name, model.address, model.city, model.state, model.zip, model.phone_number, model.addressBook_Name, model.addressBook_Type,model.address_id);
+                                Console.WriteLine("\n");
+                            }
+                        }
+                    }
+                    this.sqlConnection.Close();
+                }
+                return count;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+       
+
     }
 }

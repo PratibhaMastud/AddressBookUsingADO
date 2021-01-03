@@ -15,5 +15,6 @@ namespace AddressBookADO
         public string phone_number { get; set; }
         public string addressBook_Name { get; set; }
         public string addressBook_Type { get; set; }
+        public int address_id { get; set; }
     }
 }

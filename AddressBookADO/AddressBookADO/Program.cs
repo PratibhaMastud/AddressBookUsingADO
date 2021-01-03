@@ -36,9 +36,11 @@ namespace AddressBookADO
             Add.first_name = "Nilesh";
            string name = Repo.UpdateContact(Add);*/
 
-            int count = Repo.getEmployeeDataWithGivenRange();
-            Console.WriteLine(count);
-
+            /* int count = Repo.getEmployeeDataWithGivenRange();
+             Console.WriteLine(count);
+ */
+           int count = Repo.RetrivePersonsBelongingCityOrState();
+           Console.WriteLine(count);
         }
     }
 }

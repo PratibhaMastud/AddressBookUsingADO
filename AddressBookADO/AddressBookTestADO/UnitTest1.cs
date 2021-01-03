@@ -46,5 +46,17 @@ namespace AddressBookTestADO
             int result = addressRepo.getEmployeeDataWithGivenRange();
             Assert.AreEqual(expectedResult, result);
         }
+
+        /// <summary>
+        /// Givens the address book when city or state then should return count address book data base.
+        /// </summary>
+        [TestMethod]
+        public void GivenAddressBook_WhenCityOrState_ThenShouldReturnCountoFContactsInAddressBookDataBase()
+        {
+            int expected = 2;
+            AddressRepo addressRepo = new AddressRepo();
+            int numberofContacts = addressRepo.RetrivePersonsBelongingCityOrState();
+            Assert.AreEqual(expected, numberofContacts);
+        }
     }
 }

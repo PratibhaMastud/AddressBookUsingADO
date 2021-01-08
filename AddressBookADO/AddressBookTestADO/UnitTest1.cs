@@ -102,7 +102,7 @@ namespace AddressBookTestADO
                 addressBook_Name = "ABNameFriend",
                 addressBook_Type = "Friend",
                 address_id = 105,
-        };
+            };
             DateTime startTime = DateTime.Now;
             database.AddNewContacts(model);
             DateTime stopTime = DateTime.Now;

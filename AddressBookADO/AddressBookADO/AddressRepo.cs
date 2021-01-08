@@ -248,7 +248,7 @@ namespace AddressBookADO
                 AddressBookModel model = new AddressBookModel();
                 using (this.sqlConnection)
                 {
-                    using (SqlCommand fetch = new SqlCommand(@"Select * from address_bookDB ", this.sqlConnection))
+                    using (SqlCommand fetch = new SqlCommand(@"Select * from AddressBook ", this.sqlConnection))
                     {
                         this.sqlConnection.Open();
                         using (SqlDataReader reader = fetch.ExecuteReader())
@@ -315,7 +315,7 @@ namespace AddressBookADO
                 AddressBookModel employeeModel = new AddressBookModel();
                 using (this.sqlConnection)
                 {
-                    string query = @"select count(*) from address_bookDB where address_id between 102 and 104 ";
+                    string query = @"select count(*) from AddressBook where address_id between 102 and 104 ";
                     SqlCommand cmd = new SqlCommand(query, this.sqlConnection);
                     this.sqlConnection.Open();
                     SqlDataReader sqlDataReader = cmd.ExecuteReader();
@@ -357,7 +357,7 @@ namespace AddressBookADO
                 AddressBookModel model = new AddressBookModel();
                 using (this.sqlConnection)
                 {
-                    string query = @"select * from address_bookDB where city='Mumbai' And state='maharashtra';";
+                    string query = @"select * from AddressBook where city='Mumbai' And state='maharashtra';";
                     SqlCommand cmd = new SqlCommand(query, this.sqlConnection);
                     this.sqlConnection.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -398,5 +398,42 @@ namespace AddressBookADO
                 this.sqlConnection.Close();
             }
         }
+
+        public bool AddNewContacts(AddressBookModel Model)
+        {
+            try
+            {
+                using (this.sqlConnection)
+                {
+                    SqlCommand sqlCommand = new SqlCommand("sp_insertDataRecord", this.sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@addressBook_id", Model.addressBook_id);
+                    sqlCommand.Parameters.AddWithValue("@first_name", Model.first_name);
+                    sqlCommand.Parameters.AddWithValue("@last_name", Model.last_name);
+                    sqlCommand.Parameters.AddWithValue("@address", Model.address);
+                    sqlCommand.Parameters.AddWithValue("@city", Model.city);
+                    sqlCommand.Parameters.AddWithValue("@state", Model.state);
+                    sqlCommand.Parameters.AddWithValue("@zip", Model.zip);
+                    sqlCommand.Parameters.AddWithValue("@phone_number", Model.phone_number);
+                    sqlCommand.Parameters.AddWithValue("@addressBook_Name", Model.addressBook_Name);
+                    sqlCommand.Parameters.AddWithValue("@addressBook_Type", Model.addressBook_Type);
+                    sqlCommand.Parameters.AddWithValue("@address_id", Model.address_id);
+
+                    this.sqlConnection.Open();
+                    var result = sqlCommand.ExecuteNonQuery();
+                    this.sqlConnection.Close();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
     }
 }

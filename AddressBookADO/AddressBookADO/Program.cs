@@ -36,11 +36,24 @@ namespace AddressBookADO
             Add.first_name = "Nilesh";
            string name = Repo.UpdateContact(Add);*/
 
-            /* int count = Repo.getEmployeeDataWithGivenRange();
-             Console.WriteLine(count);
- */
-           int count = Repo.RetrivePersonsBelongingCityOrState();
-           Console.WriteLine(count);
+            int count = Repo.getEmployeeDataWithGivenRange();
+            Console.WriteLine(count);
+
+            /*int count = Repo.RetrivePersonsBelongingCityOrState();
+            Console.WriteLine(count);*/
+            /*Add.addressBook_id = 103;
+            Add.first_name = "Pratibha";
+            Add.last_name = "Mastud";
+            Add.address = "Seawoods";
+            Add.city = "Mumbai";
+            Add.state = "Maharashtra";
+            Add.zip = 400701;
+            Add.phone_number = "9676736149";
+            Add.addressBook_Name = "ABNameFriend";
+            Add.addressBook_Type = "Family";
+            Add.address_id = 103;
+            bool count = Repo.AddNewContacts(Add);
+            Console.WriteLine(count);*/
         }
     }
 }

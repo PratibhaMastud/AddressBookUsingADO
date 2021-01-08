@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using System.Collections.Generic;
 using System.Net;
@@ -46,6 +47,25 @@ namespace RestSharpTest
             {
                 System.Console.Write("id: " + e.id + "Employee Name: " + e.Name + "Salary: " + e.Salary);
             }
+        }
+
+        /// <summary>
+        /// Here We adding new Employee
+        /// </summary>
+        [TestMethod]
+        public void GivenEmployee_OnPost_ShouldReturnAddedEmployeePayroll()
+        {
+            RestRequest request = new RestRequest("/EmployeePayroll", Method.POST);
+            JObject jObjectbody = new JObject();
+            jObjectbody.Add("Name", "Imran");
+            jObjectbody.Add("Salary", "90000");
+            request.AddParameter("application/json", jObjectbody, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.Created);
+            EmployeePayroll employee = JsonConvert.DeserializeObject<EmployeePayroll>(response.Content);
+            //Employee dataResponse = JsonConvert.DeserializeObject<Employee>(response.Content);
+            Assert.AreEqual("Imran", employee.Name);
+            Assert.AreEqual("90000", employee.Salary);
         }
     }
 }

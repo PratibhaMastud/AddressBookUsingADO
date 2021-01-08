@@ -12,7 +12,7 @@ namespace AddressBookADO
         {
             Console.WriteLine("Welcome in Address Book ADO");
             AddressRepo Repo = new AddressRepo();
-          //  Repo.CheckConnection();
+            //  Repo.CheckConnection();
             AddressBookModel Add = new AddressBookModel();
             /*Add.first_name = "Pratibha";
             Add.last_name = "Karande";
@@ -59,7 +59,7 @@ namespace AddressBookADO
             bool count = Repo.AddNewContacts(Add);
             Console.WriteLine(count);*/
 
-            Console.WriteLine("Employee payroll using thread ");
+            /*Console.WriteLine("Employee payroll using thread ");
             string[] words = CreateWordArray(@"http://www.gutenberg.org/files/54700/54700-0.txt");
             #region ParallelTasks
             Parallel.Invoke(() =>
@@ -115,6 +115,7 @@ namespace AddressBookADO
             return blog.Split(
                 new char[] { ' ', '\u000A', ',', '.', ';', ':', '-', '_', '/' },
                 StringSplitOptions.RemoveEmptyEntries);
+        }*/
         }
     }
 }

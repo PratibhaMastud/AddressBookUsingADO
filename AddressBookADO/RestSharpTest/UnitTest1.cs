@@ -82,6 +82,10 @@ namespace RestSharpTest
             Assert.AreEqual("90000", employee.Salary);
         }
 
+
+        /// <summary>
+        /// Here We adding multiple Employees
+        /// </summary>
         [TestMethod]
         public void GivenEmployee_OnPost_ShouldReturnMultipleAddedEmployee()
         {
@@ -104,5 +108,26 @@ namespace RestSharpTest
                 System.Console.Write("id: " + e.id + "Name: " + e.Name + "Salary: " + e.Salary);
             }
         }
+
+        /// <summary>
+        /// Here We update particular Employee
+        /// </summary>
+        [TestMethod]
+        public void GivenEmployee_OnPut_ShouldReturnUpdatedEmpDetails()
+        {
+            RestRequest request = new RestRequest("/EmployeePayroll/4", Method.PUT);
+            JObject jObjectbody = new JObject();
+            jObjectbody.Add("Name", "rahul");
+            jObjectbody.Add("Salary", "50000");
+            request.AddParameter("application/json", jObjectbody, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+            EmployeePayroll dataResponse = JsonConvert.DeserializeObject<EmployeePayroll>(response.Content);
+            Assert.AreEqual("rahul", dataResponse.Name);
+            Assert.AreEqual("50000", dataResponse.Salary);
+            System.Console.WriteLine(response.Content);
+        }
+
+
     }
 }

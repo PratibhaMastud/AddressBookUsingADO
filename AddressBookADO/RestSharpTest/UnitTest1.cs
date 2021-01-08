@@ -12,6 +12,20 @@ namespace RestSharpTest
         public int id { get; set; }
         public string Name { get; set; }
         public string Salary { get; set; }
+
+        public EmployeePayroll(string name, string salary)
+        {
+            this.Name = name;
+            this.Salary = salary;
+        }
+        public static List<EmployeePayroll> EmployeeList()
+        {
+            List<EmployeePayroll> employees = new List<EmployeePayroll>();
+            employees.Add(new EmployeePayroll("rahul", "30000"));
+            employees.Add(new EmployeePayroll("yash", "50000"));
+            employees.Add(new EmployeePayroll("supzz", "50000"));
+            return employees;
+        }
     }
 
     [TestClass]
@@ -66,6 +80,29 @@ namespace RestSharpTest
             //Employee dataResponse = JsonConvert.DeserializeObject<Employee>(response.Content);
             Assert.AreEqual("Imran", employee.Name);
             Assert.AreEqual("90000", employee.Salary);
+        }
+
+        [TestMethod]
+        public void GivenEmployee_OnPost_ShouldReturnMultipleAddedEmployee()
+        {
+            List<EmployeePayroll> list = EmployeePayroll.EmployeeList();
+            foreach (EmployeePayroll e in list)
+            {
+                RestRequest request = new RestRequest("/employee", Method.POST);
+                JObject jObjectbody = new JObject();
+                jObjectbody.Add("name", e.Name);
+                jObjectbody.Add("Salary", e.Salary);
+                request.AddParameter("application/json", jObjectbody, ParameterType.RequestBody);
+                client.Execute(request);
+            }
+            IRestResponse responses = GetEmployeePayrollList();
+            Assert.AreEqual(responses.StatusCode, HttpStatusCode.OK);
+            List<EmployeePayroll> dataResponse = JsonConvert.DeserializeObject<List<EmployeePayroll>>(responses.Content);
+            Assert.AreEqual(16, dataResponse.Count);
+            foreach (EmployeePayroll e in dataResponse)
+            {
+                System.Console.Write("id: " + e.id + "Name: " + e.Name + "Salary: " + e.Salary);
+            }
         }
     }
 }

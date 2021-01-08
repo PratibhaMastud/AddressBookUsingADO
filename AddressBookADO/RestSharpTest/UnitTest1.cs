@@ -128,6 +128,19 @@ namespace RestSharpTest
             System.Console.WriteLine(response.Content);
         }
 
-
+        /// <summary>
+        /// Here We delete particular Employee
+        /// </summary>
+        [TestMethod]
+        public void GivenEmployee_OnDelete_ShouldEmpDetails()
+        {
+            RestRequest request = new RestRequest("/EmployeePayroll/10", Method.DELETE);
+            IRestResponse response = client.Execute(request);
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+            IRestResponse responses = GetEmployeePayrollList();
+            Assert.AreEqual(responses.StatusCode, HttpStatusCode.OK);
+            List<EmployeePayroll> dataResponse = JsonConvert.DeserializeObject<List<EmployeePayroll>>(responses.Content);
+            Assert.AreEqual(13, dataResponse.Count);
+        }
     }
 }
